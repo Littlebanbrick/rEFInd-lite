@@ -4,6 +4,8 @@ A minimal, dark theme for the [rEFInd](https://www.rodsbooks.com/refind/) boot m
 
 **rEFInd-lite** reuses the complete icon set from [darkmini](https://github.com/LightAir/darkmini) and pairs it with a single, user-friendly background system: a default sci-fi dark background that you can replace with any image using the included `configure.py` tool.
 
+![Default background](screenshots/screenshot_001.png)
+
 ## What rEFInd-lite fixes over traditional themes
 
 | Problem | rEFInd-lite solution |
@@ -83,10 +85,6 @@ rEFInd-lite/
 └── README.md
 ```
 
-## Screenshot
-
-![Default background](screenshots/screenshot_001.png)
-
 ## Credits
 
 - **Icons:** All OS and function icons are from [darkmini](https://github.com/LightAir/darkmini) by LightAir, used under the same permissive terms.
@@ -104,6 +102,8 @@ MIT — see [LICENSE](LICENSE).
 [rEFInd](https://www.rodsbooks.com/refind/) 引导管理器的一款极简暗色主题。**一张背景，一条命令，一切搞定。**
 
 rEFInd-lite 复用了 [darkmini](https://github.com/LightAir/darkmini) 的全部图标，搭配简洁的用户友好背景系统：默认提供一张科技感暗色背景，你可以用自带的 `configure.py` 工具一键替换为任意图片。
+
+![默认背景](screenshots/screenshot_001.png)
 
 ## rEFInd-lite 解决了传统主题的哪些痛点
 
@@ -183,10 +183,6 @@ rEFInd-lite/
 ├── LICENSE                # MIT 许可证
 └── README.md
 ```
-
-## 截图
-
-![默认背景](screenshots/screenshot_001.png)
 
 ## 鸣谢
 
