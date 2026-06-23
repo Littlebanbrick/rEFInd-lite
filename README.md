@@ -38,9 +38,8 @@ Run the configuration tool **from inside the OS** (not from the bootloader).
 
 ```bash
 cd /boot/efi/EFI/refind/themes/rEFInd-lite
-pip install Pillow          # one-time dependency
-sudo pip install Pillow     # also needed for root if using sudo
-sudo python3 configure.py   # auto-detects resolution, uses default background
+sudo apt install python3-pil   # one-time dependency (Debian/Ubuntu)
+sudo python3 configure.py      # auto-detects resolution, uses default background
 ```
 
 Or set a custom image:
@@ -141,9 +140,8 @@ sudo cp -r rEFInd-lite /boot/efi/EFI/refind/themes/
 
 ```bash
 cd /boot/efi/EFI/refind/themes/rEFInd-lite
-pip install Pillow          # 一次性依赖安装
-sudo pip install Pillow     # 为 root 也安装一份（使用 sudo 时需要）
-sudo python3 configure.py   # 自动检测分辨率，使用默认背景
+sudo apt install python3-pil   # 一次性依赖安装（Debian/Ubuntu）
+sudo python3 configure.py      # 自动检测分辨率，使用默认背景
 ```
 
 或者指定自定义图片：

@@ -17,7 +17,9 @@ Note: sudo is typically required because the EFI partition is owned by root.
       Resolution auto-detection falls back to /sys/class/drm when DISPLAY is
       unavailable under sudo.
 
-Requirements: Python 3.8+, Pillow (pip install Pillow; sudo pip install Pillow)
+Requirements: Python 3.8+, Pillow
+    Debian/Ubuntu: sudo apt install python3-pil
+    Other distros: pip install Pillow
 """
 
 import argparse
@@ -88,10 +90,20 @@ def resize_image(src_path, width, height, dst_path):
     try:
         from PIL import Image
     except ImportError:
-        print(
-            "ERROR: Pillow is required for image processing.\n"
-            "       Install it with:  pip install Pillow"
-        )
+        # Detect Debian-based distros for apt hint
+        is_debian = Path("/etc/debian_version").exists()
+        if is_debian:
+            print(
+                "ERROR: Pillow is required for image processing.\n"
+                "       Install it with:\n"
+                "         sudo apt install python3-pil"
+            )
+        else:
+            print(
+                "ERROR: Pillow is required for image processing.\n"
+                "       Install it with:\n"
+                "         pip install Pillow"
+            )
         sys.exit(1)
 
     print(f"  Reading: {src_path}")
