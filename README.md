@@ -55,6 +55,10 @@ python3 configure.py --detect                    # prints e.g. 3840x2400
 sudo python3 configure.py --resolution 3840x2400 --bg ~/wallpaper.jpg
 ```
 
+When successful, you should see output like this:
+
+![configure.py output](screenshots/configured.png)
+
 ### 3. Activate the theme
 
 Add this line to the end of your `refind.conf`:
@@ -156,6 +160,10 @@ sudo python3 configure.py --bg ~/Pictures/my_wallpaper.png
 python3 configure.py --detect                    # 输出如 3840x2400
 sudo python3 configure.py --resolution 3840x2400 --bg ~/wallpaper.jpg
 ```
+
+成功运行后应看到类似输出：
+
+![configure.py 输出](screenshots/configured.png)
 
 ### 3. 启用主题
 
