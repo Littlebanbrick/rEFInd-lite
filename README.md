@@ -32,24 +32,28 @@ sudo cp -r rEFInd-lite /boot/efi/EFI/refind/themes/
 
 ### 2. Configure your background
 
-Run the configuration tool **from inside the OS** (not from the bootloader):
+Run the configuration tool **from inside the OS** (not from the bootloader).
+
+> **Note:** The EFI partition is owned by root, so `configure.py` needs `sudo` to write the resized background and update `theme.conf`. Resolution auto-detection works via `/sys/class/drm` even under `sudo`.
 
 ```bash
 cd /boot/efi/EFI/refind/themes/rEFInd-lite
 pip install Pillow          # one-time dependency
-python3 configure.py        # auto-detects resolution, uses default background
+sudo pip install Pillow     # also needed for root if using sudo
+sudo python3 configure.py   # auto-detects resolution, uses default background
 ```
 
 Or set a custom image:
 
 ```bash
-python3 configure.py --bg ~/Pictures/my_wallpaper.png
+sudo python3 configure.py --bg ~/Pictures/my_wallpaper.png
 ```
 
-Or specify resolution manually (useful for multi-monitor setups):
+Or pre-detect resolution without sudo, then apply with sudo (if xrandr works better for your setup):
 
 ```bash
-python3 configure.py --bg ~/wallpaper.jpg --resolution 1920x1080
+python3 configure.py --detect                    # prints e.g. 3840x2400
+sudo python3 configure.py --resolution 3840x2400 --bg ~/wallpaper.jpg
 ```
 
 ### 3. Activate the theme
@@ -131,24 +135,28 @@ sudo cp -r rEFInd-lite /boot/efi/EFI/refind/themes/
 
 ### 2. 配置背景
 
-**在操作系统中**运行配置工具（不是在引导界面中）：
+**在操作系统中**运行配置工具（不是在引导界面中）。
+
+> **注意：** EFI 分区归 root 所有，因此 `configure.py` 需要 `sudo` 才能写入调整后的背景图并更新 `theme.conf`。分辨率自动检测在 `sudo` 下也能通过 `/sys/class/drm` 正常工作。
 
 ```bash
 cd /boot/efi/EFI/refind/themes/rEFInd-lite
 pip install Pillow          # 一次性依赖安装
-python3 configure.py        # 自动检测分辨率，使用默认背景
+sudo pip install Pillow     # 为 root 也安装一份（使用 sudo 时需要）
+sudo python3 configure.py   # 自动检测分辨率，使用默认背景
 ```
 
 或者指定自定义图片：
 
 ```bash
-python3 configure.py --bg ~/Pictures/my_wallpaper.png
+sudo python3 configure.py --bg ~/Pictures/my_wallpaper.png
 ```
 
-也可以手动指定分辨率（多显示器环境适用）：
+也可以先不 sudo 检测分辨率，再用 sudo 执行（如果你的 xrandr 检测效果更好）：
 
 ```bash
-python3 configure.py --bg ~/wallpaper.jpg --resolution 1920x1080
+python3 configure.py --detect                    # 输出如 3840x2400
+sudo python3 configure.py --resolution 3840x2400 --bg ~/wallpaper.jpg
 ```
 
 ### 3. 启用主题

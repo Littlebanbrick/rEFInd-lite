@@ -7,13 +7,17 @@ image to fit, and updates the theme configuration — no manual copying, no
 hand-editing config files.
 
 Usage:
-    python3 configure.py                        # auto-detect, use default bg
-    python3 configure.py --bg ~/my_wallpaper.jpg  # set a custom background
-    python3 configure.py --resolution 1920x1080   # specify resolution explicitly
-    python3 configure.py --bg image.png -r 2560x1440
-    python3 configure.py --detect                 # print detected resolution only
+    sudo python3 configure.py                        # auto-detect, use default bg
+    sudo python3 configure.py --bg ~/my_wallpaper.jpg  # set a custom background
+    sudo python3 configure.py --resolution 1920x1080   # specify resolution explicitly
+    sudo python3 configure.py --bg image.png -r 2560x1440
+    python3 configure.py --detect                     # print resolution (no sudo needed)
 
-Requirements: Python 3.8+, Pillow (pip install Pillow)
+Note: sudo is typically required because the EFI partition is owned by root.
+      Resolution auto-detection falls back to /sys/class/drm when DISPLAY is
+      unavailable under sudo.
+
+Requirements: Python 3.8+, Pillow (pip install Pillow; sudo pip install Pillow)
 """
 
 import argparse
@@ -55,15 +59,18 @@ def detect_resolution():
     except (FileNotFoundError, subprocess.CalledProcessError, ValueError):
         pass
 
-    # Method 2: /sys/class/drm
+    # Method 2: /sys/class/drm (works under sudo when xrandr has no $DISPLAY)
     try:
         for card in sorted(Path("/sys/class/drm").iterdir()):
-            if not card.name.endswith("-1"):
-                continue  # skip connectors that aren't the first output
-            status = (card / "status").read_text().strip()
+            # Each connector has a "cardN-<name>" directory with status + modes
+            status_file = card / "status"
+            modes_file = card / "modes"
+            if not status_file.is_file() or not modes_file.is_file():
+                continue
+            status = status_file.read_text().strip()
             if status != "connected":
                 continue
-            modes = (card / "modes").read_text().strip().splitlines()
+            modes = modes_file.read_text().strip().splitlines()
             if modes:
                 w, h = modes[0].split("x")
                 return int(w), int(h)
@@ -107,7 +114,15 @@ def resize_image(src_path, width, height, dst_path):
     print(f"  Resized to:  {width}×{height}")
 
     # Save
-    img.save(dst_path, "PNG")
+    try:
+        img.save(dst_path, "PNG")
+    except PermissionError:
+        print(
+            "ERROR: Permission denied — cannot write to the theme directory.\n"
+            "       The EFI partition is owned by root. Re-run with sudo:\n"
+            "         sudo python3 configure.py"
+        )
+        sys.exit(1)
     print(f"  Saved: {dst_path}")
 
 
@@ -131,7 +146,15 @@ def update_theme_conf(bg_filename):
         # Banner line not found — append one
         new_lines.append(f"banner themes/rEFInd-lite/bg/{bg_filename}")
 
-    THEME_CONF.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
+    try:
+        THEME_CONF.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
+    except PermissionError:
+        print(
+            "ERROR: Permission denied — cannot update theme.conf.\n"
+            "       The EFI partition is owned by root. Re-run with sudo:\n"
+            "         sudo python3 configure.py"
+        )
+        sys.exit(1)
     print(f"  Updated: {THEME_CONF}")
 
 
