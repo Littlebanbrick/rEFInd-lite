@@ -84,10 +84,8 @@ rEFInd-lite/
 ├── configure.py           # Background setup tool
 ├── bg/
 │   └── background.png     # Default background (replace with configure.py)
-├── icons/                 # 52 OS and function icons (from darkmini)
-├── selection_big.png      # Large selection indicator
-├── selection_small.png    # Small selection indicator
-├── screenshots/           # Screenshots (add yours here!)
+├── icons/                 # 52 OS/function icons + selection indicators (from darkmini)
+├── screenshots/           # Screenshots
 ├── LICENSE                # MIT
 └── README.md
 ```
@@ -190,10 +188,8 @@ rEFInd-lite/
 ├── configure.py           # 背景配置工具
 ├── bg/
 │   └── background.png     # 默认背景（用 configure.py 替换）
-├── icons/                 # 52 个系统和功能图标（来自 darkmini）
-├── selection_big.png      # 大号选择指示器
-├── selection_small.png    # 小号选择指示器
-├── screenshots/           # 截图目录（请添加你的截图！）
+├── icons/                 # 52 个系统/功能图标 + 选择指示器（来自 darkmini）
+├── screenshots/           # 截图目录
 ├── LICENSE                # MIT 许可证
 └── README.md
 ```
