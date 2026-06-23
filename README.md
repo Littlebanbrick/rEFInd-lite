@@ -83,6 +83,10 @@ rEFInd-lite/
 └── README.md
 ```
 
+## Screenshot
+
+![Default background](screenshots/screenshot_001.png)
+
 ## Credits
 
 - **Icons:** All OS and function icons are from [darkmini](https://github.com/LightAir/darkmini) by LightAir, used under the same permissive terms.
@@ -179,6 +183,10 @@ rEFInd-lite/
 ├── LICENSE                # MIT 许可证
 └── README.md
 ```
+
+## 截图
+
+![默认背景](screenshots/screenshot_001.png)
 
 ## 鸣谢
 
